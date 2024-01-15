@@ -16,5 +16,16 @@ public class IndexController {
         return port;
     }
 
+    /**
+     * 熔断测试：当前时间戳为偶数则抛出异常
+     */
+    @RequestMapping("/degrade")
+    public String degradeTest() {
+        long currentTimeMillis = System.currentTimeMillis();
+        if (currentTimeMillis % 2 == 0) {
+            throw new RuntimeException("后台运行出错了");
+        }
+        return String.valueOf(currentTimeMillis);
+    }
 
 }

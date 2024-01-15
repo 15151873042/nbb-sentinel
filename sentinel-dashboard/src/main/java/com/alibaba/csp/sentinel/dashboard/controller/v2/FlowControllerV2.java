@@ -63,7 +63,6 @@ public class FlowControllerV2 {
     @Autowired
     private InMemoryRuleRepositoryAdapter<FlowRuleEntity> repository;
 
-    // 将上面代码修改为以下代码：
     @Autowired
     private RuleNacosProvider ruleProvider;
     @Autowired
