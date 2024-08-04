@@ -11,8 +11,13 @@ public class IndexController {
     private String port;
 
 
-    @RequestMapping("/port")
-    public String port() {
+    @RequestMapping("/port1")
+    public String port1() {
+        return port;
+    }
+
+    @RequestMapping("/port2")
+    public String port2() {
         return port;
     }
 
@@ -22,9 +27,9 @@ public class IndexController {
     @RequestMapping("/degrade")
     public String degradeTest() {
         long currentTimeMillis = System.currentTimeMillis();
-        if (currentTimeMillis % 2 == 0) {
-            throw new RuntimeException("后台运行出错了");
-        }
+//        if (currentTimeMillis % 2 == 0) {
+//            throw new RuntimeException("后台运行出错了");
+//        }
         return String.valueOf(currentTimeMillis);
     }
 

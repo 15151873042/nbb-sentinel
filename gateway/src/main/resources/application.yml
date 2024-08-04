@@ -1,9 +1,9 @@
 server:
-  port: 8001
+  port: 8080
 
 spring:
   application:
-    name: service-A-app
+    name: gateway
   cloud:
     nacos:
       discovery:
@@ -11,6 +11,15 @@ spring:
         namespace: sentinel
         username: nacos
         password: nacos
+    gateway:
+      routes:
+        # 认证中心
+        - id: serviceA
+          uri: lb://service-A-app
+          predicates:
+            - Path=/serviceA/**
+          filters:
+            - StripPrefix=1
     sentinel:
       transport:
         dashboard: http://127.0.0.1:8849 # sentinel dashboard地址
@@ -24,21 +33,19 @@ spring:
         aaa: # 这边名称随意
           nacos: # 从nacos获取sentinel规则信息
             server-addr: 127.0.0.1
-            data-id: ${spring.application.name}.sentinel.rule.flow # 流控规则的dataId
+            data-id: ${spring.application.name}.sentinel.rule.gateway.api # api管理规则的dataId
             group-id: SENTINEL_GROUP
             namespace: sentinel
             username: nacos
             password: nacos
-            rule-type: flow # 规则类型 - 流控规则
+            rule-type: GW_API_GROUP # 规则类型 - api管理
         bbb:
           nacos:
             server-addr: 127.0.0.1
-            data-id: ${spring.application.name}.sentinel.rule.degrade # 熔断规则
+            data-id: ${spring.application.name}.sentinel.rule.gateway.flow # api管理规则的dataId
             group-id: SENTINEL_GROUP
             namespace: sentinel
             username: nacos
             password: nacos
-            rule-type: DEGRADE # 规则类型 - 流控规则
-
-
+            rule-type: GW_FLOW # 规则类型 - 网关流控规则
 
