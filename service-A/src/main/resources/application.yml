@@ -40,5 +40,7 @@ spring:
             password: nacos
             rule-type: DEGRADE # 规则类型 - 流控规则
 
-
-
+# 开启Feign整合Sentinel熔断
+feign:
+  sentinel:
+    enabled: true # 能够识别所有feign客户端并将其注册到sentinel dashboard簇点链路
